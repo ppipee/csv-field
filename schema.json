@@ -1,0 +1,17 @@
+{
+  "type": "component",
+  "metadata": {},
+  "schema": {
+    "name": "csv-import",
+    "friendlyName": "csv-import",
+    "description": "An amazing Budibase component!",
+    "icon": "Text",
+    "settings": [
+      {
+        "type": "text",
+        "key": "text",
+        "label": "Text"
+      }
+    ]
+  }
+}
