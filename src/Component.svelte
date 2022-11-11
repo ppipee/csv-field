@@ -3,7 +3,7 @@
   import CsvField from './components/CsvField.svelte'
   import { createEventDispatcher } from 'svelte'
 
-  export let label = ' '
+  export let label = ''
   export let dragZoneText = ''
   export let hideImportButton = false
   export let importButtonLabel = ''
@@ -20,8 +20,9 @@
 
   const handleChange = e => {
     const data = e.detail
+    console.log('🔥 ~ data', data)
 
-    dispatch('change', data)
+    dispatch('change', { value: data })
     stateStore?.actions.setValue('csvData', data)
   }
 </script>
