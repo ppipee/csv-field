@@ -37,7 +37,7 @@
   $: fieldApi?.setValue(data)
 
   $: dataContext = {
-    data: fieldState?.value || [],
+    data: fieldState?.value?.[field] || [],
   }
 
   const handleChange = e => {
