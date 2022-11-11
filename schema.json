@@ -27,7 +27,7 @@
       },
       {
         "type": "event",
-        "key": "change",
+        "key": "onChange",
         "label": "onChange"
       },
       {
