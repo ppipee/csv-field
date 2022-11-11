@@ -34,7 +34,7 @@
     fieldApi = value?.fieldApi
   })
 
-  $: fieldApi?.setValue(secret)
+  $: fieldApi?.setValue(data)
 
   $: dataContext = {
     data,
