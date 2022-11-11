@@ -1,5 +1,5 @@
 <script>
-  import { getContext } from 'svelte'
+  import { getContext, onDestroy } from 'svelte'
   import CsvField from './components/CsvField.svelte'
 
   export let field
