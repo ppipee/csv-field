@@ -37,7 +37,7 @@
   // $: fieldApi?.setValue(data)
 
   $: dataContext = {
-    data,
+    data: fieldState?.value || [],
   }
 
   const handleChange = e => {
@@ -68,7 +68,7 @@
         {label}
         {dragZoneText}
         on:change={handleChange}
-        data={fieldState.value}
+        data={fieldState?.value}
         bind:isParsed
       />
       <slot />
