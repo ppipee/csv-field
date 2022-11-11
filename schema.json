@@ -10,7 +10,8 @@
       {
         "type": "text",
         "key": "label",
-        "label": "Label"
+        "label": "Label",
+        "defaultValue": "label"
       },
       {
         "type": "text",
