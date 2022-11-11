@@ -65,6 +65,6 @@
       bind:data
       bind:isParsed
     />
-    {$component.children}
+    <slot />
   </Provider>
 </div>
