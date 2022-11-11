@@ -48,9 +48,11 @@
 </script>
 
 <div>
-  <div>
-    {label}
-  </div>
+  {#if label}
+    <div>
+      {label}
+    </div>
+  {/if}
   {#if !isParsed}
     <Dropzone on:drop={onFileChange} multiple="false">{dragZoneText}</Dropzone>
   {:else}

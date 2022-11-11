@@ -1,33 +1,59 @@
 <script>
   import { getContext } from 'svelte'
   import CsvField from './components/CsvField.svelte'
-  import { createEventDispatcher } from 'svelte'
 
+  export let field
   export let label = ''
   export let dragZoneText = ''
   export let hideImportButton = false
   export let importButtonLabel = ''
-  export let onChange = () => {}
-
-  const dispatch = createEventDispatcher()
+  export let onChange
 
   const { styleable, Provider } = getContext('sdk')
   const component = getContext('component')
+  const formContext = getContext('form')
+  const formStepContext = getContext('form-step')
 
   let data = []
   let isParsed = false
+
+  const formApi = formContext?.formApi
+  $: formStep = $formStepContext ?? 1
+  $: formField = formApi?.registerField(
+    field,
+    'array',
+    [],
+    false,
+    null,
+    formStep
+  )
+
+  let fieldApi
+
+  $: unsubscribe = formField?.subscribe(value => {
+    fieldApi = value?.fieldApi
+  })
+
+  $: fieldApi?.setValue(secret)
 
   $: dataContext = {
     data,
   }
 
   const handleChange = e => {
-    const data = e.detail
     console.log('🔥 ~ data', data)
+    const changed = fieldApi.setValue(e.detail)
 
-    onChange(e.detail)
-    dispatch('change', { value: data })
+    if (onChange && changed) {
+      console.log('🔥 ~ changed')
+      onChange({ value: e.detail })
+    }
   }
+
+  onDestroy(() => {
+    fieldApi?.deregister()
+    unsubscribe?.()
+  })
 </script>
 
 <div use:styleable={$component.styles}>
@@ -39,5 +65,6 @@
       bind:data
       bind:isParsed
     />
+    {$component.children}
   </Provider>
 </div>

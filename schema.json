@@ -9,6 +9,11 @@
     "hasChildren": true,
     "settings": [
       {
+        "type": "field/array",
+        "key": "field",
+        "label": "Field"
+      },
+      {
         "type": "text",
         "key": "label",
         "label": "Label",
@@ -43,7 +48,8 @@
         "values": [
           {
             "key": "data",
-            "label": "Data"
+            "label": "Data",
+            "type": "array"
           }
         ]
       }
