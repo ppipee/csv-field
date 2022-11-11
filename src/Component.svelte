@@ -10,14 +10,16 @@
   export let onChange = () => {}
 
   const dispatch = createEventDispatcher()
-  const stateStore = getContext('state')
-  console.log('🔥 ~ stateStore', stateStore)
+
+  const { styleable, Provider } = getContext('sdk')
+  const component = getContext('component')
 
   let data = []
   let isParsed = false
 
-  const { styleable } = getContext('sdk')
-  const component = getContext('component')
+  $: dataContext = {
+    data,
+  }
 
   const handleChange = e => {
     const data = e.detail
@@ -25,16 +27,17 @@
 
     onChange(e.detail)
     dispatch('change', { value: data })
-    stateStore?.actions.setValue('csvData', data)
   }
 </script>
 
 <div use:styleable={$component.styles}>
-  <CsvField
-    {label}
-    {dragZoneText}
-    on:change={handleChange}
-    bind:data
-    bind:isParsed
-  />
+  <Provider data={dataContext}>
+    <CsvField
+      {label}
+      {dragZoneText}
+      on:change={handleChange}
+      bind:data
+      bind:isParsed
+    />
+  </Provider>
 </div>

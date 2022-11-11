@@ -6,6 +6,7 @@
     "friendlyName": "csv-import",
     "description": "import csv with onChange event",
     "icon": "FileData",
+    "hasChildren": true,
     "settings": [
       {
         "type": "text",
@@ -34,6 +35,17 @@
         "key": "importButtonLabel",
         "label": "Import Button Label",
         "defaultValue": "Import"
+      }
+    ],
+    "context": [
+      {
+        "type": "static",
+        "values": [
+          {
+            "key": "data",
+            "label": "Data"
+          }
+        ]
       }
     ]
   }
