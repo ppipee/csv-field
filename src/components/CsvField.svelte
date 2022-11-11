@@ -5,8 +5,8 @@
 
   export let label
   export let dragZoneText
-  export let data
   export let isParsed
+  export let fieldState
 
   let file = {}
 
@@ -33,7 +33,7 @@
 
     file = acceptedFiles[0]
 
-    data = await parseCsv(file)
+    const data = await parseCsv(file)
 
     isParsed = true
 
@@ -42,16 +42,15 @@
 
   const removeFile = () => {
     file = {}
-    data = []
     isParsed = false
   }
 </script>
 
 <div>
   {#if label}
-    <div>
+    <label for={fieldState?.fieldId}>
       {label}
-    </div>
+    </label>
   {/if}
   {#if !isParsed}
     <Dropzone on:drop={onFileChange} multiple="false">{dragZoneText}</Dropzone>

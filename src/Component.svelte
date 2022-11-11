@@ -1,7 +1,6 @@
 <script>
   import { getContext, onDestroy } from 'svelte'
   import CsvField from './components/CsvField.svelte'
-  import Field from '@budibase/bbui/src/Form/Field.svelte'
 
   export let field
   export let label = ''
@@ -12,35 +11,38 @@
 
   const { styleable, Provider } = getContext('sdk')
   const component = getContext('component')
-  // const formContext = getContext('form')
-  // const formStepContext = getContext('form-step')
+  const formContext = getContext('form')
+  const formStepContext = getContext('form-step')
 
+  let isParsed = false
   let fieldState
   let fieldApi
-  let isParsed = false
 
-  // const formApi = formContext?.formApi
-  // $: formStep = $formStepContext ?? 1
-  // $: formField = formApi?.registerField(
-  //   field,
-  //   'array',
-  //   [],
-  //   false,
-  //   null,
-  //   formStep
-  // )
+  const formApi = formContext?.formApi
+  $: formStep = $formStepContext ?? 1
+  $: formField = formApi?.registerField(
+    field,
+    'array',
+    [],
+    false,
+    null,
+    formStep
+  )
 
-  // $: unsubscribe = formField?.subscribe(value => {
-  //   fieldApi = value?.fieldApi
-  // })
+  $: unsubscribe = formField?.subscribe(value => {
+    fieldApi = value?.fieldApi
+    fieldState = value?.fieldState
+  })
 
-  // $: fieldApi?.setValue(data)
+  $: fieldApi?.setValue(data)
 
   $: dataContext = {
-    data: fieldState?.value || [],
+    data: fieldState.value,
   }
 
   const handleChange = e => {
+    console.log('🔥 ~ data', data)
+
     const changed = fieldApi.setValue(e.detail)
 
     if (onChange && changed) {
@@ -48,30 +50,21 @@
     }
   }
 
-  // onDestroy(() => {
-  //   fieldApi?.deregister()
-  //   unsubscribe?.()
-  // })
+  onDestroy(() => {
+    fieldApi?.deregister()
+    unsubscribe?.()
+  })
 </script>
 
 <div use:styleable={$component.styles}>
-  <Field
-    {label}
-    {field}
-    defaultValue={[]}
-    type="array"
-    bind:fieldState
-    bind:fieldApi
-  >
-    <Provider data={dataContext}>
-      <CsvField
-        {label}
-        {dragZoneText}
-        on:change={handleChange}
-        data={fieldState?.value}
-        bind:isParsed
-      />
-      <slot />
-    </Provider>
-  </Field>
+  <Provider data={dataContext}>
+    <CsvField
+      {label}
+      {dragZoneText}
+      on:change={handleChange}
+      bind:isParsed
+      {fieldState}
+    />
+    <slot />
+  </Provider>
 </div>
