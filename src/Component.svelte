@@ -45,7 +45,8 @@
     const changed = fieldApi.setValue(e.detail)
 
     if (onChange && changed) {
-      onChange(e)
+      console.log('🔥 ~ onChange', onChange)
+      onChange(e.detail)
     }
   }
 
