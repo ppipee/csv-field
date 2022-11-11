@@ -1,18 +1,20 @@
 <script>
   import { getContext, onDestroy } from 'svelte'
   import CsvField from './components/CsvField.svelte'
+  import { createEventDispatcher } from 'svelte'
 
   export let field
   export let label = ''
   export let dragZoneText = ''
   export let hideImportButton = false
   export let importButtonLabel = ''
-  export let onChange
 
   const { styleable, Provider } = getContext('sdk')
   const component = getContext('component')
   const formContext = getContext('form')
   const formStepContext = getContext('form-step')
+
+  const dispatch = createEventDispatcher()
 
   let isParsed = false
   let fieldState
@@ -44,12 +46,8 @@
 
     const changed = fieldApi.setValue(e.detail)
 
-    if (onChange && changed) {
-      onChange({
-        target: { value: e.detail },
-        value: e.detail,
-        value: { value: e.detail },
-      })
+    if (changed) {
+      dispatch('change', e.detail)
     }
   }
 
