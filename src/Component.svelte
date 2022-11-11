@@ -45,7 +45,11 @@
     const changed = fieldApi.setValue(e.detail)
 
     if (onChange && changed) {
-      onChange({ value: e.detail })
+      onChange({
+        target: { value: e.detail },
+        value: e.detail,
+        value: { value: e.detail },
+      })
     }
   }
 
