@@ -17,6 +17,7 @@
   let isParsed = false
   let fieldState
   let fieldApi
+  let data = fieldState?.value?.[field]
 
   const formApi = formContext?.formApi
   $: formStep = $formStepContext ?? 1
@@ -34,14 +35,12 @@
     fieldState = value?.fieldState
   })
 
-  $: fieldApi?.setValue(data)
-
   $: dataContext = {
-    data: fieldState?.value?.[field] || [],
+    data: data || [],
   }
 
   const handleChange = e => {
-    console.log('🔥 ~ data', data)
+    console.log('🔥 ~ data', e.detail)
 
     const changed = fieldApi.setValue(e.detail)
 
