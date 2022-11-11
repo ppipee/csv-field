@@ -50,7 +50,7 @@
     const changed = fieldApi.setValue(e.detail)
 
     if (onChange && changed) {
-      console.log('🔥 ~ changed')
+      console.log('🔥 ~ changed', changed)
       onChange({ value: e.detail })
     }
   }
