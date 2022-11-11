@@ -4,13 +4,35 @@
   "schema": {
     "name": "csv-import",
     "friendlyName": "csv-import",
-    "description": "An amazing Budibase component!",
-    "icon": "Text",
+    "description": "import csv with onChange event",
+    "icon": "FileData",
     "settings": [
       {
         "type": "text",
-        "key": "text",
-        "label": "Text"
+        "key": "label",
+        "label": "Label"
+      },
+      {
+        "type": "text",
+        "key": "dragzoneText",
+        "label": "Dragzone text",
+        "defaultValue": "Drag 'n' drop some (csv) files here, or click to select (csv) files"
+      },
+      {
+        "type": "event",
+        "key": "onChange",
+        "label": "onChange"
+      },
+      {
+        "type": "boolean",
+        "key": "hideImportButton",
+        "label": "Hide Import Button"
+      },
+      {
+        "type": "text",
+        "key": "importButtonLabel",
+        "label": "Import Button Label",
+        "defaultValue": "Import"
       }
     ]
   }
