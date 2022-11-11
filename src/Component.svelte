@@ -2,7 +2,6 @@
   import { getContext } from 'svelte'
   import CsvField from './components/CsvField.svelte'
   import { createEventDispatcher } from 'svelte'
-  import Field from '@budibase/bbui/src/Form/Field.svelte'
 
   export let label = ''
   export let dragZoneText = ''
@@ -31,7 +30,11 @@
 </script>
 
 <div use:styleable={$component.styles}>
-  <Field {label} labelPosition="above">
-    <CsvField {dragZoneText} on:change={handleChange} bind:data bind:isParsed />
-  </Field>
+  <CsvField
+    {label}
+    {dragZoneText}
+    on:change={handleChange}
+    bind:data
+    bind:isParsed
+  />
 </div>
