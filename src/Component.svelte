@@ -1,6 +1,7 @@
 <script>
   import { getContext, onDestroy } from 'svelte'
   import CsvField from './components/CsvField.svelte'
+  import { createEventDispatcher } from 'svelte'
 
   export let field
   export let label = ''
@@ -13,6 +14,8 @@
   const component = getContext('component')
   const formContext = getContext('form')
   const formStepContext = getContext('form-step')
+
+  const dispatch = createEventDispatcher()
 
   let data = []
   let isParsed = false
@@ -42,6 +45,8 @@
 
   const handleChange = e => {
     console.log('🔥 ~ data', data)
+
+    dispatch('change', data)
     const changed = fieldApi.setValue(e.detail)
 
     if (onChange && changed) {
