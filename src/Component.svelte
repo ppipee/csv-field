@@ -41,6 +41,7 @@
   $: dataContext = {
     data: fieldState?.value || [],
   }
+  console.log('🔥 ~ dataContext', dataContext)
 
   // workaround, because onChange event cannot pass value yet.
   $: onValueChange(fieldState)
@@ -68,7 +69,7 @@
     <CsvField
       {label}
       {dragZoneText}
-      on:change={handleChange}
+      on:change={onChange}
       bind:isParsed
       {fieldState}
     />
