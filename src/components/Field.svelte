@@ -1,6 +1,6 @@
 <script>
-  import Placeholder from '../Placeholder.svelte'
-  import FieldGroupFallback from '../FieldGroupFallback.svelte'
+  import Placeholder from './Placeholder.svelte'
+  import FieldGroupFallback from './FieldGroupFallback.svelte'
   import { getContext, onDestroy } from 'svelte'
 
   export let label
