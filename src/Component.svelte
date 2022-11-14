@@ -56,10 +56,10 @@
 
   const onValueChange = fieldState => {
     console.log('🔥 ~ data', fieldState?.value, ref.isChanged)
-    if (ref.isChanged) {
-      onChange?.(fieldState)
-      ref.isChanged = false
-    }
+    // if (ref.isChanged) {
+    onChange?.(fieldState)
+    ref.isChanged = false
+    // }
   }
 
   onDestroy(() => {
