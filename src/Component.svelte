@@ -41,10 +41,11 @@
   }
 
   // workaround, because onChange event cannot pass value yet.
-  $: onValueChange(data)
+  $: isChanged && onValueChange(fieldState?.value?.[field])
 
   const handleChange = e => {
     const changed = fieldApi.setValue(e.detail)
+    console.log('🔥 ~ changed-out', changed, e.detail)
 
     if (onChange && changed) {
       console.log('🔥 ~ changed', changed)
