@@ -3,10 +3,8 @@
   import Papa from 'papaparse'
   import { createEventDispatcher } from 'svelte'
 
-  export let label
   export let dragZoneText
   export let isParsed
-  export let fieldState
 
   let file = {}
 
@@ -46,26 +44,19 @@
   }
 </script>
 
-<div>
-  {#if label}
-    <label for={fieldState?.fieldId}>
-      {label}
-    </label>
-  {/if}
-  {#if !isParsed}
-    <Dropzone on:drop={onFileChange} multiple="false">{dragZoneText}</Dropzone>
-  {:else}
-    <div class="gallery">
-      <div class="title">
-        <div class="filename">{file.name}</div>
-        {#if file.size}
-          <div class="filesize">
-            {`${file.size / 1024} KB`}
-          </div>
-        {/if}
-        <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="delete-button" on:click={removeFile}>X</div>
-      </div>
+{#if !isParsed}
+  <Dropzone on:drop={onFileChange} multiple="false">{dragZoneText}</Dropzone>
+{:else}
+  <div class="gallery">
+    <div class="title">
+      <div class="filename">{file.name}</div>
+      {#if file.size}
+        <div class="filesize">
+          {`${file.size / 1024} KB`}
+        </div>
+      {/if}
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <div class="delete-button" on:click={removeFile}>X</div>
     </div>
-  {/if}
-</div>
+  </div>
+{/if}

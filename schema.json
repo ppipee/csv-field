@@ -40,6 +40,11 @@
         "key": "importButtonLabel",
         "label": "Import Button Label",
         "defaultValue": "Import"
+      },
+      {
+        "type": "boolean",
+        "key": "disabled",
+        "label": "disabled"
       }
     ],
     "context": [

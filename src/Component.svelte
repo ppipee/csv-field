@@ -1,6 +1,7 @@
 <script>
-  import { getContext, onDestroy } from 'svelte'
+  import { getContext } from 'svelte'
   import CsvField from './components/CsvField.svelte'
+  import Field from './components/Field.svelte'
 
   export let field
   export let label = ''
@@ -8,71 +9,42 @@
   export let hideImportButton = false
   export let importButtonLabel = ''
   export let onChange
+  export let disabled = false
 
-  const { styleable, Provider } = getContext('sdk')
-  const component = getContext('component')
-  const formContext = getContext('form')
-  const formStepContext = getContext('form-step')
-
-  console.log('🔥 ~ component', component)
-  console.log('🔥 ~ skd', getContext('sdk'))
+  const { Provider } = getContext('sdk')
 
   let isParsed = false
-  let ref = { isChanged: false }
   let fieldState
   let fieldApi
-
-  const formApi = formContext?.formApi
-  $: formStep = $formStepContext ?? 1
-  $: formField = formApi?.registerField(
-    field,
-    'array',
-    [],
-    false,
-    null,
-    formStep
-  )
-
-  $: unsubscribe = formField?.subscribe(value => {
-    fieldApi = value?.fieldApi
-    fieldState = value?.fieldState
-  })
 
   $: dataContext = {
     data: fieldState?.value || [],
   }
-  console.log('🔥 ~ dataContext', dataContext)
-
-  // workaround, because onChange event cannot pass value yet.
-  $: onValueChange(fieldState)
 
   const handleChange = e => {
-    fieldApi.setValue(e.detail)
+    const changed = fieldApi.setValue(e.detail)
+    if (onChange && changed) {
+      onChange({ value: e.detail })
+    }
   }
-
-  const onValueChange = fieldState => {
-    console.log('🔥 ~ data', fieldState?.value, ref.isChanged)
-    // if (ref.isChanged) {
-    onChange?.(fieldState)
-    ref.isChanged = false
-    // }
-  }
-
-  onDestroy(() => {
-    fieldApi?.deregister()
-    unsubscribe?.()
-  })
 </script>
 
-<div use:styleable={$component.styles}>
+<Field
+  {label}
+  {field}
+  {disabled}
+  type="array"
+  bind:fieldState
+  bind:fieldApi
+  defaultValue={[]}
+>
   <Provider data={dataContext}>
     <CsvField
-      {label}
       {dragZoneText}
-      on:change={onChange}
+      on:change={handleChange}
       bind:isParsed
       {fieldState}
     />
     <slot />
   </Provider>
-</div>
+</Field>
