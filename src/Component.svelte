@@ -18,6 +18,7 @@
   let fieldState
   let fieldApi
   let data = fieldState?.value?.[field]
+  let isChanged = false
 
   const formApi = formContext?.formApi
   $: formStep = $formStepContext ?? 1
@@ -39,14 +40,17 @@
     data: data || [],
   }
 
-  const handleChange = e => {
-    console.log('🔥 ~ data', e.detail)
+  // workaround, because onChange event cannot pass value yet.
+  $: if (isChanged) {
+    onChange({ value: data })
+    isChanged = false
+  }
 
+  const handleChange = e => {
     const changed = fieldApi.setValue(e.detail)
 
     if (onChange && changed) {
-      console.log('🔥 ~ onChange', onChange)
-      onChange(e.detail)
+      isChanged = true
     }
   }
 
