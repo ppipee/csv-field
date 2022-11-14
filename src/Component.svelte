@@ -18,10 +18,10 @@
   const dispatch = createEventDispatcher()
 
   let isParsed = false
+  let isChanged = false
+  let data = fieldState?.value?.[field]
   let fieldState
   let fieldApi
-  let data = fieldState?.value?.[field]
-  let isChanged = false
 
   const formApi = formContext?.formApi
   $: formStep = $formStepContext ?? 1
@@ -45,10 +45,11 @@
 
   // workaround, because onChange event cannot pass value yet.
   $: onValueChange(fieldState?.value?.[field])
+  console.log('🔥 ~ fieldState?.value', fieldState?.value)
 
   const handleChange = e => {
     const changed = fieldApi.setValue(e.detail)
-    console.log('🔥 ~ changed-out', changed, e.detail, onChange)
+    console.log('🔥 ~ changed-out', changed, e.detail, onChange, fieldApi)
 
     if (changed) {
       console.log('🔥 ~ changed', changed)
@@ -56,7 +57,6 @@
     }
   }
 
-  $: console.log('🔥 ~ fieldState', fieldState)
   const onValueChange = data => {
     console.log('🔥 ~ data', data, fieldState)
     if (isChanged) {
