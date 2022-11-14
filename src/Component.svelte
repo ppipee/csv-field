@@ -23,6 +23,11 @@
 
   const handleChange = e => {
     const changed = fieldApi.setValue(e.detail)
+
+    // workaround
+    window['csvData'] = e.detail
+    console.log('🔥 ~ window', window['csvData'])
+
     if (onChange && changed) {
       onChange({ value: e.detail })
     }
