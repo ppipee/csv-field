@@ -15,7 +15,7 @@
   const formStepContext = getContext('form-step')
 
   let isParsed = false
-  let isChanged = false
+  let ref = { isChanged: false }
   let data = fieldState?.value?.[field]
   let fieldState
   let fieldApi
@@ -50,15 +50,15 @@
 
     if (changed) {
       console.log('🔥 ~ changed', changed)
-      isChanged = true
+      ref.isChanged = true
     }
   }
 
   const onValueChange = data => {
-    console.log('🔥 ~ data', data)
-    if (isChanged) {
+    console.log('🔥 ~ data', data, ref.isChanged)
+    if (ref.isChanged) {
       onChange?.({ value: data })
-      isChanged = false
+      ref.isChanged = false
     }
   }
 
