@@ -57,9 +57,8 @@
   }
 
   const onValueChange = data => {
-    console.log('🔥 ~ data', data)
+    console.log('🔥 ~ data', data, fieldState?.value?.[field])
     if (isChanged) {
-      dispatch('onChange', data)
       onChange?.({ value: data })
       isChanged = false
     }
