@@ -47,6 +47,7 @@
     const changed = fieldApi.setValue(e.detail)
 
     if (onChange && changed) {
+      console.log('🔥 ~ changed', changed)
       isChanged = true
     }
   }
