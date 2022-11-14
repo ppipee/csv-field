@@ -45,9 +45,9 @@
 
   const handleChange = e => {
     const changed = fieldApi.setValue(e.detail)
-    console.log('🔥 ~ changed-out', changed, e.detail)
+    console.log('🔥 ~ changed-out', changed, e.detail, onChange)
 
-    if (onChange && changed) {
+    if (changed) {
       console.log('🔥 ~ changed', changed)
       isChanged = true
     }
@@ -55,7 +55,7 @@
 
   const onValueChange = data => {
     if (isChanged) {
-      onChange({ value: data })
+      onChange?.({ value: data })
       isChanged = false
     }
   }
