@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher, getContext, onDestroy } from 'svelte'
+  import { getContext, onDestroy } from 'svelte'
   import CsvField from './components/CsvField.svelte'
 
   export let field
@@ -8,14 +8,11 @@
   export let hideImportButton = false
   export let importButtonLabel = ''
   export let onChange
-  console.log('🔥 ~ onChange', onChange)
 
   const { styleable, Provider } = getContext('sdk')
   const component = getContext('component')
   const formContext = getContext('form')
   const formStepContext = getContext('form-step')
-
-  const dispatch = createEventDispatcher()
 
   let isParsed = false
   let isChanged = false
@@ -44,7 +41,7 @@
   }
 
   // workaround, because onChange event cannot pass value yet.
-  $: onValueChange(fieldState?.value?.[field])
+  $: onValueChange(fieldState?.value)
   console.log('🔥 ~ fieldState?.value', fieldState?.value)
 
   const handleChange = e => {
@@ -58,7 +55,7 @@
   }
 
   const onValueChange = data => {
-    console.log('🔥 ~ data', data, fieldState)
+    console.log('🔥 ~ data', data)
     if (isChanged) {
       onChange?.({ value: data })
       isChanged = false
