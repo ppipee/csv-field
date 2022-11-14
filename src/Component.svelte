@@ -14,9 +14,11 @@
   const formContext = getContext('form')
   const formStepContext = getContext('form-step')
 
+  console.log('🔥 ~ component', component)
+  console.log('🔥 ~ skd', getContext('sdk'))
+
   let isParsed = false
   let ref = { isChanged: false }
-  let data = fieldState?.value?.[field]
   let fieldState
   let fieldApi
 
@@ -37,21 +39,14 @@
   })
 
   $: dataContext = {
-    data: data || [],
+    data: fieldState?.value || [],
   }
 
   // workaround, because onChange event cannot pass value yet.
   $: onValueChange(fieldState)
-  console.log('🔥 ~ fieldState?.value', fieldState)
 
   const handleChange = e => {
-    const changed = fieldApi.setValue(e.detail)
-    console.log('🔥 ~ changed-out', changed, e.detail, onChange, fieldApi)
-
-    if (changed) {
-      console.log('🔥 ~ changed', changed)
-      ref.isChanged = true
-    }
+    fieldApi.setValue(e.detail)
   }
 
   const onValueChange = fieldState => {
