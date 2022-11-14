@@ -58,7 +58,7 @@
 
   const onValueChange = data => {
     if (isChanged) {
-      dispatch('change', data)
+      dispatch('onChange', data)
       onChange?.({ value: data })
       isChanged = false
     }
