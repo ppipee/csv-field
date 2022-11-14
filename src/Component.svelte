@@ -41,7 +41,7 @@
   }
 
   // workaround, because onChange event cannot pass value yet.
-  $: if (isChanged) {
+  $: if (isChanged && data) {
     onChange({ value: data })
     isChanged = false
   }
