@@ -57,7 +57,7 @@
   const onValueChange = fieldState => {
     console.log('🔥 ~ data', fieldState?.value, ref.isChanged)
     if (ref.isChanged) {
-      onChange?.({ value: fieldState?.value })
+      onChange?.(fieldState)
       ref.isChanged = false
     }
   }
