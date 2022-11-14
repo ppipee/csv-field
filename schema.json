@@ -9,7 +9,7 @@
     "hasChildren": true,
     "settings": [
       {
-        "type": "field",
+        "type": "field/array",
         "key": "field",
         "label": "Field"
       },
