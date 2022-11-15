@@ -14,7 +14,6 @@
 
   // Get contexts
   const formContext = getContext('form')
-  console.log('🔥 ~ formContext', formContext)
   const formStepContext = getContext('form-step')
   const { styleable, builderStore } = getContext('sdk')
   const component = getContext('component')
