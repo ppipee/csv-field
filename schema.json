@@ -32,31 +32,8 @@
       },
       {
         "type": "boolean",
-        "key": "hideImportButton",
-        "label": "Hide Import Button"
-      },
-      {
-        "type": "text",
-        "key": "importButtonLabel",
-        "label": "Import Button Label",
-        "defaultValue": "Import"
-      },
-      {
-        "type": "boolean",
         "key": "disabled",
         "label": "disabled"
-      }
-    ],
-    "context": [
-      {
-        "type": "static",
-        "values": [
-          {
-            "key": "data",
-            "label": "Data",
-            "type": "array"
-          }
-        ]
       }
     ]
   }

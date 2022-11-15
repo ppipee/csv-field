@@ -6,23 +6,14 @@
   export let field
   export let label = ''
   export let dragZoneText = ''
-  export let hideImportButton = false
-  export let importButtonLabel = ''
   export let onChange
   export let disabled = false
-
-  const { Provider } = getContext('sdk')
 
   let isParsed = false
   let changed = false
   let fieldState
   let fieldApi
   let formState
-  console.log('🔥 ~ formState', formState)
-
-  $: dataContext = {
-    data: formState?.[field] || [],
-  }
 
   $: onUpdate(formState?.[field])
 
@@ -36,7 +27,6 @@
 
   const onUpdate = formValue => {
     if (changed) {
-      console.log('🔥 ~ formValue', formValue)
       onChange({ value: formValue })
       changed = false
     }
@@ -53,13 +43,11 @@
   bind:formState
   defaultValue={[]}
 >
-  <Provider data={dataContext}>
-    <CsvField
-      {dragZoneText}
-      on:change={handleChange}
-      bind:isParsed
-      {fieldState}
-    />
-    <slot />
-  </Provider>
+  <CsvField
+    {dragZoneText}
+    on:change={handleChange}
+    bind:isParsed
+    {fieldState}
+  />
+  <slot />
 </Field>
