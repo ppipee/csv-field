@@ -13,14 +13,13 @@
 
   // Get contexts
   const formContext = getContext('form')
+  console.log('🔥 ~ formContext', formContext)
   const formStepContext = getContext('form-step')
-  const fieldGroupContext = getContext('field-group')
   const { styleable, builderStore } = getContext('sdk')
   const component = getContext('component')
 
   // Register field with form
   const formApi = formContext?.formApi
-  const labelPos = fieldGroupContext?.labelPosition || 'above'
   $: formStep = formStepContext ? $formStepContext || 1 : 1
   $: formField = formApi?.registerField(
     field,

@@ -18,7 +18,6 @@
   let fieldState
   let fieldApi
 
-  console.log('🔥 ~ fieldState', fieldState)
   $: dataContext = {
     data: fieldState?.value || [],
   }
