@@ -28,7 +28,6 @@
     const dataChanged = fieldApi.setValue(e.detail)
 
     if (onChange && dataChanged) {
-      data = e.detail
       changed = true
     }
   }
