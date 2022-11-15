@@ -18,11 +18,12 @@
   let fieldState
   let fieldApi
 
+  console.log('🔥 ~ fieldState', fieldState)
   $: dataContext = {
     data: fieldState?.value || [],
   }
 
-  $: changed && onUpdate(fieldState?.value)
+  $: changed && onUpdate(fieldState)
 
   const handleChange = e => {
     const dataChanged = fieldApi.setValue(e.detail)
