@@ -22,7 +22,7 @@
     data: fieldState?.value || [],
   }
 
-  $: onUpdate(fieldState?.value)
+  $: changed && onUpdate(fieldState?.value)
 
   const handleChange = e => {
     const dataChanged = fieldApi.setValue(e.detail)
@@ -34,11 +34,9 @@
   }
 
   const onUpdate = fieldState => {
-    if (changed) {
-      console.log('🔥 ~ fieldState.value', fieldState.value)
-      onChange({ value: fieldState.value })
-      changed = false
-    }
+    console.log('🔥 ~ fieldState.value', fieldState.value)
+    onChange({ value: fieldState.value })
+    changed = false
   }
 </script>
 
