@@ -39,8 +39,6 @@
     fieldApi = value?.fieldApi
   })
 
-  $: labelClass = labelPos === 'above' ? '' : `spectrum-FieldLabel--${labelPos}`
-
   const updateLabel = e => {
     builderStore.actions.updateProp('label', e.target.textContent)
   }
@@ -51,7 +49,7 @@
   })
 </script>
 
-<div class="spectrum-Form-item" use:styleable={$component.styles}>
+<div class="container" use:styleable={$component.styles}>
   {#key $component.editing}
     <label
       bind:this={labelNode}
@@ -59,7 +57,7 @@
       on:blur={$component.editing ? updateLabel : null}
       class:hidden={!label}
       for={fieldState?.fieldId}
-      class={`spectrum-FieldLabel spectrum-FieldLabel--sizeM spectrum-Form-itemLabel ${labelClass}`}
+      class={`spectrum-FieldLabel spectrum-FieldLabel--sizeM spectrum-Form-itemLabel`}
     >
       {label || ' '}
     </label>
@@ -79,6 +77,11 @@
 </div>
 
 <style>
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
   label {
     white-space: nowrap;
   }
@@ -96,9 +99,5 @@
     );
     font-size: var(--spectrum-global-dimension-font-size-75);
     margin-top: var(--spectrum-global-dimension-size-75);
-  }
-  .spectrum-FieldLabel--right,
-  .spectrum-FieldLabel--left {
-    padding-right: var(--spectrum-global-dimension-size-200);
   }
 </style>

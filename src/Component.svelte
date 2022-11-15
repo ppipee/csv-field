@@ -17,10 +17,9 @@
   let changed = false
   let fieldState
   let fieldApi
-  let data = []
 
   $: dataContext = {
-    data,
+    data: fieldState?.value || [],
   }
 
   $: onUpdate(fieldState?.value)
@@ -36,6 +35,7 @@
 
   const onUpdate = fieldState => {
     if (changed) {
+      console.log('🔥 ~ fieldState.value', fieldState.value)
       onChange({ value: fieldState.value })
       changed = false
     }
