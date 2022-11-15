@@ -1,5 +1,4 @@
 <script>
-  import { getContext } from 'svelte'
   import CsvField from './components/CsvField.svelte'
   import Field from './components/Field.svelte'
 
@@ -43,11 +42,5 @@
   bind:formState
   defaultValue={[]}
 >
-  <CsvField
-    {dragZoneText}
-    on:change={handleChange}
-    bind:isParsed
-    {fieldState}
-  />
-  <slot />
+  <CsvField {dragZoneText} on:change={handleChange} bind:isParsed />
 </Field>
