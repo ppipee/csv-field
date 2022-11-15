@@ -6,6 +6,7 @@
   export let field
   export let fieldState
   export let fieldApi
+  export let formState
   export let defaultValue
   export let type
   export let disabled = false
@@ -17,10 +18,6 @@
   const formStepContext = getContext('form-step')
   const { styleable, builderStore } = getContext('sdk')
   const component = getContext('component')
-
-  formContext?.formState?.subscribe(value => {
-    console.log('🔥 ~ value', value)
-  })
 
   // Register field with form
   const formApi = formContext?.formApi
@@ -37,9 +34,13 @@
   let labelNode
   $: $component.editing && labelNode?.focus()
 
-  $: unsubscribe = formField?.subscribe(value => {
+  $: unsubscribeFormField = formField?.subscribe(value => {
     fieldState = value?.fieldState
     fieldApi = value?.fieldApi
+  })
+
+  $: unsubscribeContext = formContext?.formState?.subscribe(value => {
+    formState = value?.values
   })
 
   const updateLabel = e => {
@@ -48,7 +49,8 @@
 
   onDestroy(() => {
     fieldApi?.deregister()
-    unsubscribe?.()
+    unsubscribeFormField?.()
+    unsubscribeContext?.()
   })
 </script>
 

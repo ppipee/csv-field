@@ -17,12 +17,14 @@
   let changed = false
   let fieldState
   let fieldApi
+  let formState
+  console.log('🔥 ~ formState', formState)
 
   $: dataContext = {
-    data: fieldState?.value || [],
+    data: formState?.[field] || [],
   }
 
-  $: changed && onUpdate(fieldState)
+  $: onUpdate(formState?.[field])
 
   const handleChange = e => {
     const dataChanged = fieldApi.setValue(e.detail)
@@ -32,10 +34,12 @@
     }
   }
 
-  const onUpdate = fieldState => {
-    console.log('🔥 ~ fieldState.value', fieldState.value)
-    onChange({ value: fieldState.value })
-    changed = false
+  const onUpdate = formValue => {
+    if (changed) {
+      console.log('🔥 ~ formValue', formValue)
+      onChange({ value: formValue })
+      changed = false
+    }
   }
 </script>
 
@@ -46,6 +50,7 @@
   type="array"
   bind:fieldState
   bind:fieldApi
+  bind:formState
   defaultValue={[]}
 >
   <Provider data={dataContext}>
