@@ -2,11 +2,10 @@
   "type": "component",
   "metadata": {},
   "schema": {
-    "name": "csv-import",
-    "friendlyName": "csv-import",
-    "description": "import csv with onChange event",
+    "name": "csv-input",
+    "friendlyName": "csv-input",
+    "description": "form field for csv data",
     "icon": "FileData",
-    "hasChildren": true,
     "settings": [
       {
         "type": "field/array",
