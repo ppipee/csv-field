@@ -18,6 +18,10 @@
   const { styleable, builderStore } = getContext('sdk')
   const component = getContext('component')
 
+  formContext?.formState?.subscribe(value => {
+    console.log('🔥 ~ value', value)
+  })
+
   // Register field with form
   const formApi = formContext?.formApi
   $: formStep = formStepContext ? $formStepContext || 1 : 1
