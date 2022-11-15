@@ -1,13 +1,11 @@
 <script>
   import Placeholder from './Placeholder.svelte'
-  import FieldGroupFallback from './FieldGroupFallback.svelte'
   import { getContext, onDestroy } from 'svelte'
 
   export let label
   export let field
   export let fieldState
   export let fieldApi
-  export let fieldSchema
   export let defaultValue
   export let type
   export let disabled = false
@@ -32,20 +30,15 @@
     validation,
     formStep
   )
-  $: schemaType = fieldSchema?.type !== 'formula' ? fieldSchema?.type : 'string'
 
-  // Focus label when editing
   let labelNode
   $: $component.editing && labelNode?.focus()
 
-  // Update form properties in parent component on every store change
   $: unsubscribe = formField?.subscribe(value => {
     fieldState = value?.fieldState
     fieldApi = value?.fieldApi
-    fieldSchema = value?.fieldSchema
   })
 
-  // Determine label class from position
   $: labelClass = labelPos === 'above' ? '' : `spectrum-FieldLabel--${labelPos}`
 
   const updateLabel = e => {
@@ -58,38 +51,32 @@
   })
 </script>
 
-<FieldGroupFallback>
-  <div class="spectrum-Form-item" use:styleable={$component.styles}>
-    {#key $component.editing}
-      <label
-        bind:this={labelNode}
-        contenteditable={$component.editing}
-        on:blur={$component.editing ? updateLabel : null}
-        class:hidden={!label}
-        for={fieldState?.fieldId}
-        class={`spectrum-FieldLabel spectrum-FieldLabel--sizeM spectrum-Form-itemLabel ${labelClass}`}
-      >
-        {label || ' '}
-      </label>
-    {/key}
-    <div class="spectrum-Form-itemField">
-      {#if !formContext}
-        <Placeholder text="Form components need to be wrapped in a form" />
-      {:else if !fieldState}
-        <Placeholder />
-      {:else if schemaType && schemaType !== type && type !== 'options'}
-        <Placeholder
-          text="This Field setting is the wrong data type for this component"
-        />
-      {:else}
-        <slot />
-        {#if fieldState.error}
-          <div class="error">{fieldState.error}</div>
-        {/if}
+<div class="spectrum-Form-item" use:styleable={$component.styles}>
+  {#key $component.editing}
+    <label
+      bind:this={labelNode}
+      contenteditable={$component.editing}
+      on:blur={$component.editing ? updateLabel : null}
+      class:hidden={!label}
+      for={fieldState?.fieldId}
+      class={`spectrum-FieldLabel spectrum-FieldLabel--sizeM spectrum-Form-itemLabel ${labelClass}`}
+    >
+      {label || ' '}
+    </label>
+  {/key}
+  <div class="spectrum-Form-itemField">
+    {#if !formContext}
+      <Placeholder text="Form components need to be wrapped in a form" />
+    {:else if !fieldState}
+      <Placeholder />
+    {:else}
+      <slot />
+      {#if fieldState.error}
+        <div class="error">{fieldState.error}</div>
       {/if}
-    </div>
+    {/if}
   </div>
-</FieldGroupFallback>
+</div>
 
 <style>
   label {

@@ -60,3 +60,42 @@
     </div>
   </div>
 {/if}
+
+<style>
+  .gallery {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    background-color: var(--spectrum-global-color-gray-50);
+    color: var(--spectrum-alias-text-color);
+    font-size: var(--spectrum-alias-item-text-size-m);
+    box-sizing: border-box;
+    border: var(--spectrum-alias-border-size-thin)
+      var(--spectrum-alias-border-color) solid;
+    border-radius: var(--spectrum-alias-border-radius-regular);
+    padding: 10px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+  }
+
+  .filename {
+    flex: 1 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 0;
+    margin-right: 10px;
+  }
+
+  .delete-button {
+    transition: all 0.3s;
+    margin-left: 10px;
+    display: flex;
+  }
+</style>

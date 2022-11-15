@@ -14,22 +14,30 @@
   const { Provider } = getContext('sdk')
 
   let isParsed = false
+  let changed = false
   let fieldState
   let fieldApi
+  let data = []
 
   $: dataContext = {
-    data: fieldState?.value || [],
+    data,
   }
 
+  $: onUpdate(fieldState?.value)
+
   const handleChange = e => {
-    const changed = fieldApi.setValue(e.detail)
+    const dataChanged = fieldApi.setValue(e.detail)
 
-    // workaround
-    window['csvData'] = e.detail
-    console.log('🔥 ~ window', window['csvData'])
+    if (onChange && dataChanged) {
+      data = e.detail
+      changed = true
+    }
+  }
 
-    if (onChange && changed) {
-      onChange({ value: e.detail })
+  const onUpdate = fieldState => {
+    if (changed) {
+      onChange({ value: fieldState.value })
+      changed = false
     }
   }
 </script>
