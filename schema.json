@@ -2,8 +2,8 @@
   "type": "component",
   "metadata": {},
   "schema": {
-    "name": "csv-import",
-    "friendlyName": "csv-import",
+    "name": "csv-field",
+    "friendlyName": "CSV Field",
     "description": "form field for csv data",
     "icon": "FileData",
     "settings": [
