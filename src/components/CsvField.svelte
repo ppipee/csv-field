@@ -5,6 +5,8 @@
 
   export let dragZoneText
   export let isParsed
+  export let fieldApi
+  export let data
 
   let file = {}
 
@@ -25,7 +27,7 @@
     const { acceptedFiles } = e.detail
 
     if (acceptedFiles.length === 0) {
-      file = null
+      file = {}
       return
     }
 
@@ -38,9 +40,23 @@
     dispatch('change', data)
   }
 
-  const removeFile = () => {
+  $: data && onReset()
+
+  const onReset = () => {
+    console.log('🔥 ~ data', data, isParsed)
+    if (data === [] && isParsed) {
+      reset()
+    }
+  }
+
+  const reset = () => {
     file = {}
     isParsed = false
+  }
+
+  const hanleReset = () => {
+    reset()
+    fieldApi?.setValue([])
   }
 </script>
 
@@ -56,7 +72,7 @@
         </div>
       {/if}
       <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <div class="delete-button" on:click={removeFile}>X</div>
+      <div class="delete-button" on:click={hanleReset}>X</div>
     </div>
   </div>
 {/if}

@@ -1,6 +1,6 @@
 {
   "name": "csv-field",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "form field for csv data",
   "license": "MIT",
   "svelte": "index.js",

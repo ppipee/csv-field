@@ -42,5 +42,11 @@
   bind:formState
   defaultValue={[]}
 >
-  <CsvField {dragZoneText} on:change={handleChange} bind:isParsed />
+  <CsvField
+    {dragZoneText}
+    {fieldApi}
+    data={fieldState?.value}
+    on:change={handleChange}
+    bind:isParsed
+  />
 </Field>
