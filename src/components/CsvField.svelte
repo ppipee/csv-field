@@ -43,8 +43,7 @@
   $: data && onReset()
 
   const onReset = () => {
-    console.log('🔥 ~ data', data, isParsed)
-    if (data === [] && isParsed) {
+    if (data?.length === 0 && isParsed) {
       reset()
     }
   }
